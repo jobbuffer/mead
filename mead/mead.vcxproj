@@ -78,6 +78,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\base_func.h" />
+    <ClInclude Include="mead.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\base_func.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
