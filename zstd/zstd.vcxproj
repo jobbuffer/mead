@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{20C79B90-E1C6-4D0B-8C2B-E52B5030BA66}</ProjectGuid>
+    <ProjectGuid>{4563EFC8-FE91-4588-AF30-2D6B8AC665E5}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>zstd</RootNamespace>
   </PropertyGroup>

@@ -5,6 +5,12 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mead", "mead\mead.vcxproj", "{244C8D4F-2926-4B91-9455-26598BB72C2A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "h264", "h264\h264.vcxproj", "{88F36800-D90C-42C2-962A-EEE3B97FBC7D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "h265", "h265\h265.vcxproj", "{193C99C4-7EA7-4CC5-90C1-833CBC97C00E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zstd", "zstd\zstd.vcxproj", "{4563EFC8-FE91-4588-AF30-2D6B8AC665E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -15,6 +21,18 @@ Global
 		{244C8D4F-2926-4B91-9455-26598BB72C2A}.Debug|Win32.Build.0 = Debug|Win32
 		{244C8D4F-2926-4B91-9455-26598BB72C2A}.Release|Win32.ActiveCfg = Release|Win32
 		{244C8D4F-2926-4B91-9455-26598BB72C2A}.Release|Win32.Build.0 = Release|Win32
+		{88F36800-D90C-42C2-962A-EEE3B97FBC7D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{88F36800-D90C-42C2-962A-EEE3B97FBC7D}.Debug|Win32.Build.0 = Debug|Win32
+		{88F36800-D90C-42C2-962A-EEE3B97FBC7D}.Release|Win32.ActiveCfg = Release|Win32
+		{88F36800-D90C-42C2-962A-EEE3B97FBC7D}.Release|Win32.Build.0 = Release|Win32
+		{193C99C4-7EA7-4CC5-90C1-833CBC97C00E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{193C99C4-7EA7-4CC5-90C1-833CBC97C00E}.Debug|Win32.Build.0 = Debug|Win32
+		{193C99C4-7EA7-4CC5-90C1-833CBC97C00E}.Release|Win32.ActiveCfg = Release|Win32
+		{193C99C4-7EA7-4CC5-90C1-833CBC97C00E}.Release|Win32.Build.0 = Release|Win32
+		{4563EFC8-FE91-4588-AF30-2D6B8AC665E5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4563EFC8-FE91-4588-AF30-2D6B8AC665E5}.Debug|Win32.Build.0 = Debug|Win32
+		{4563EFC8-FE91-4588-AF30-2D6B8AC665E5}.Release|Win32.ActiveCfg = Release|Win32
+		{4563EFC8-FE91-4588-AF30-2D6B8AC665E5}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{35270AAB-C4A1-45F7-80CA-248EA2763E25}</ProjectGuid>
+    <ProjectGuid>{193C99C4-7EA7-4CC5-90C1-833CBC97C00E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>h265</RootNamespace>
   </PropertyGroup>
