@@ -5,6 +5,7 @@
 #include "base_func.h"
 #include "zstd.h"
 
+#pragma warning(disable:4996)
 
 static void compress(const char *name_in, const char *name_out, const int cLevel)
 {
@@ -17,10 +18,18 @@ static void compress(const char *name_in, const char *name_out, const int cLevel
 	void*  buffOut = malloc(buffOutSize);
 
 	ZSTD_CCtx *cctx = ZSTD_createCCtx();
+	ZSTD_inBuffer input;
+	ZSTD_outBuffer output;
+	ZSTD_EndDirective mode;
 	size_t toRead = buffInSize;
+	size_t remaining = 0;
+	size_t read = 0;
+	int finished = 0;
+	int lastChunk = 0;
+	int write = 0;
 
-	fout = fopen(name_out, "wb");
-	fin = fopen(name_in, "rb");
+	fout = fopen(name_out, "wb+");
+	fin = fopen(name_in, "rb+");
 	if (!fin || !fout)
 	{
 		if (fin) fclose(fin);
@@ -34,17 +43,16 @@ static void compress(const char *name_in, const char *name_out, const int cLevel
 
 	for (;;) 
 	{
-		size_t read = fread(buffIn, 1, toRead, fin);
-		int const lastChunk = (read < toRead);
-		ZSTD_EndDirective mode = lastChunk ? ZSTD_e_end : ZSTD_e_continue;
-		ZSTD_inBuffer input = { buffIn, read, 0 };
-		int finished;
-
+		read = fread(buffIn, 1, toRead, fin);
+		lastChunk = (read < toRead);
+		mode = lastChunk ? ZSTD_e_end : ZSTD_e_continue;
+		ZSTD_inBuffer input = { buffIn, read, 0 };		
 		do
 		{
 			ZSTD_outBuffer output = { buffOut, buffOutSize, 0 };
-			size_t remaining = ZSTD_compressStream2(cctx, &output, &input, mode);
-			int write = fwrite(buffOut, 1, output.pos, fout);
+
+			remaining = ZSTD_compressStream2(cctx, &output, &input, mode);
+			write = fwrite(buffOut, 1, output.pos, fout);
 			printf("write length:%d\n", write);
 			finished = lastChunk ? (remaining == 0) : (input.pos == input.size);
 		} while (!finished);
@@ -74,14 +82,18 @@ static void decompress(const char *name_in,const char *name_out)
 	void*  buffOut = malloc(buffOutSize);
 
 	ZSTD_DCtx *dctx = ZSTD_createDCtx();
-	
+	ZSTD_inBuffer input;
+	ZSTD_outBuffer output;
+
 	size_t toRead = buffInSize;
 	size_t read;
 	size_t lastRet = 0;
 	int isEmpty = 1;
+	int write = 0;
+	int ret = 0;
 
-	fin = fopen(name_in, "wb");
-	fout = fopen(name_out, "rb");
+	fin = fopen(name_in, "rb+");
+	fout = fopen(name_out, "wb+");
 	if (!fin || !fout)
 	{
 		if (fin) fclose(fin);
@@ -89,19 +101,27 @@ static void decompress(const char *name_in,const char *name_out)
 		return 2;
 	}
 
-	while ((read = fread_orDie(buffIn, toRead, fin)))
+	do
 	{
+		read = fread(buffIn, 1, buffInSize, fin);
 		isEmpty = 0;
-		ZSTD_inBuffer input = { buffIn, read, 0 };
-		while (input.pos < input.size) 
+		input.src = buffIn;
+		input.size = read;
+		input.pos = 0;
+
+		while (input.pos < input.size)
 		{
-			ZSTD_outBuffer output = { buffOut, buffOutSize, 0 };
-			size_t ret = ZSTD_decompressStream(dctx, &output, &input);
-			fwrite_orDie(buffOut, output.pos, fout);
+			output.dst = buffOut;
+			output.size = buffOutSize;;
+			output.pos = 0;
+
+			ret = ZSTD_decompressStream(dctx, &output, &input);
+			write = fwrite(buffOut, 1, output.pos, fout);
+			printf("write: out pos:%llu, write length:%d\n", output.pos, write);
 			lastRet = ret;
 		}
-	}
-
+	} while (read == buffInSize);
+	
 	if (isEmpty) {
 		fprintf(stderr, "input is empty\n");
 		exit(1);
@@ -113,16 +133,16 @@ static void decompress(const char *name_in,const char *name_out)
 	}
 
 	ZSTD_freeDCtx(dctx);
-	fclsoe(fin); fin = NULL;
-	fclsoe(fout); fout = NULL;
+	fclose(fin); fin = NULL;
+	fclose(fout); fout = NULL;
 	free(buffIn);
 	free(buffOut);
 }
 
 int main()
 {
-	compress("yuv420p_320x240.yuv", "compress.zst", 1);
-	decompress("compress.zst","dst.yuv");
+	compress("G:/project/4/mead/zstd/yuv420p_320x240.yuv", "G:/project/4/mead/zstd/compress.zst", 1);
+	decompress("G:/project/4/mead/zstd/compress.zst","G:/project/4/mead/zstd/dst.yuv");
 	system("pause");
 	return 0;
 }
