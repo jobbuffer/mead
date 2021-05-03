@@ -15,8 +15,19 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="zlib_main.c">
+    <ClCompile Include="fitblk.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="compress.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\base_func.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\base_func.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

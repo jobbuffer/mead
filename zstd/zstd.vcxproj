@@ -81,7 +81,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\base_func.c" />
     <ClCompile Include="zstd_main.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\base_func.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

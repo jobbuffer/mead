@@ -53,7 +53,6 @@ static void compress(const char *name_in, const char *name_out, const int cLevel
 
 			remaining = ZSTD_compressStream2(cctx, &output, &input, mode);
 			write = fwrite(buffOut, 1, output.pos, fout);
-			printf("write length:%d\n", write);
 			finished = lastChunk ? (remaining == 0) : (input.pos == input.size);
 		} while (!finished);
 		
@@ -117,7 +116,6 @@ static void decompress(const char *name_in,const char *name_out)
 
 			ret = ZSTD_decompressStream(dctx, &output, &input);
 			write = fwrite(buffOut, 1, output.pos, fout);
-			printf("write: out pos:%llu, write length:%d\n", output.pos, write);
 			lastRet = ret;
 		}
 	} while (read == buffInSize);
@@ -141,8 +139,20 @@ static void decompress(const char *name_in,const char *name_out)
 
 int main()
 {
-	compress("G:/project/4/mead/zstd/yuv420p_320x240.yuv", "G:/project/4/mead/zstd/compress.zst", 1);
+	uint64_t compress_time = 0;
+	uint64_t uncompress_time = 0;
+	uint64_t time_tmp = 0;
+
+	time_tmp = mead_time_ms();
+	compress("G:/project/4/mead/zstd/yuv420p_320x240.yuv", "G:/project/4/mead/zstd/compress.zst", 4);
+	compress_time = mead_time_ms() - time_tmp;
+
+	time_tmp = mead_time_ms();
 	decompress("G:/project/4/mead/zstd/compress.zst","G:/project/4/mead/zstd/dst.yuv");
+	uncompress_time = mead_time_ms() - time_tmp;
+
+	printf("cost: compress :%llu, uncomoress:%llu\n", compress_time, uncompress_time);
+
 	system("pause");
 	return 0;
 }
