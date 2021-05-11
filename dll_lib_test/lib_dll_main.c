@@ -8,7 +8,7 @@
 
 #pragma comment(lib,"dll_test.lib")
 
-int c_main()
+int main()
 {
 	int lib_re = lib_int_(10);
 	int dll_re = dll_int_(11);
