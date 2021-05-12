@@ -15,17 +15,15 @@ for lib, you just need copy the lib to you project.
 * MEAD
 	the main project
 ===========================================================
-* H264
-	provide h264 encoder and decoder, use x264 encoder,
-	FFMPEG decoder
-===========================================================
-* H265
-===========================================================
 * RLE
 ===========================================================
 * ZLIB
 ===========================================================
 * ZSTD
+===========================================================
+* H264 encode/decode
+	on mead_need_packet contents, mead2.zip contain x264_encode
+x264_decode project,
 ===========================================================
 git push时出错，SSL问题：
 ssl验证: git config --global http.sslVerify "false"
